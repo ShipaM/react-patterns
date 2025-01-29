@@ -1,5 +1,7 @@
+import { useState } from "react";
 import "./App.css";
 import { Card } from "./ComponentInjection/Card";
+import Accordion from "./CompoundComponents/Accordeon";
 import { ClickCounterParent } from "./RenderProps/ClickCounterParent";
 import { DataFetcher } from "./RenderProps/DataFetcher";
 import { PaginationChild } from "./RenderProps/PaginationChild";
@@ -20,8 +22,13 @@ type Albums = {
 };
 
 function App() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const handleToggle = (index: number) => {
+    setActiveIndex((prev) => (prev === index ? null : index));
+  };
   return (
     <>
+      <h1>Render props</h1>
       <div className="render-props">
         <ParentComponent />
         {/* // Получаем такой код
@@ -147,10 +154,39 @@ function App() {
           }}
         />
       </div>
+      <hr />
+      <h1>Component Injection</h1>
       <div className="component-injection">
         <Card header={<h3>Component title</h3>} footer={<button>More</button>}>
           Content
         </Card>
+      </div>
+      <hr />
+      <h1>Compound Components</h1>
+      <div className="compound-components">
+        <Accordion>
+          <Accordion.Item
+            title="Section1"
+            isActive={activeIndex === 0}
+            onToggle={() => handleToggle(0)}
+          >
+            Content for section1
+          </Accordion.Item>
+          <Accordion.Item
+            title="Section2"
+            isActive={activeIndex === 1}
+            onToggle={() => handleToggle(1)}
+          >
+            Content for section2
+          </Accordion.Item>
+          <Accordion.Item
+            title="Section3"
+            isActive={activeIndex === 2}
+            onToggle={() => handleToggle(2)}
+          >
+            Content for section3
+          </Accordion.Item>
+        </Accordion>
       </div>
     </>
   );

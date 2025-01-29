@@ -1,0 +1,12 @@
+.accordion-item {
+  border: 1px solid white;
+  padding: 20px;
+  margin: 10px 0;
+}
+
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  align-items: center;
+}
